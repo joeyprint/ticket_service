@@ -19,6 +19,7 @@ public class RegisterController {
 
     @PostMapping("/register/ticket")
     public ResponseEntity<User> userPurchaseTicket(@RequestBody HashMap registerDetail) {
-        return new ResponseEntity<User>(userService.purchaseTicket(registerDetail), HttpStatus.CREATED);
+        User register_object = userService.purchaseTicket(registerDetail);
+        return new ResponseEntity<User>(register_object, HttpStatus.CREATED);
     }
 }
