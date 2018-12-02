@@ -1,5 +1,6 @@
 package me.wasin.joey.CloudNativeFinal.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import me.wasin.joey.CloudNativeFinal.Ticket.Ticket;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,6 +26,12 @@ public class User implements Serializable {
     @NotBlank
     private String lastname;
 
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
+
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerTime;
@@ -49,6 +56,13 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
+    public User(@NotBlank String firstname, @NotBlank String lastname, @NotBlank String username, @NotBlank String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -59,6 +73,14 @@ public class User implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setRegisterTime(Date registerTime) {
@@ -79,6 +101,14 @@ public class User implements Serializable {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Date getRegisterTime() {
