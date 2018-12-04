@@ -18,6 +18,9 @@ public class UserService {
     @Autowired
     private TicketRepository ticketRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
@@ -38,5 +41,11 @@ public class UserService {
         user.getTickets().add(ticket);
         ticket.getUsers().add(user);
         return userRepository.save(user);
+    }
+
+    public Address addAddress(Address address, long userId) {
+        User user = userRepository.findById(userId);
+        address.setUser(user);
+        return addressRepository.save(address);
     }
 }

@@ -1,5 +1,6 @@
 package me.wasin.joey.CloudNativeFinal.Controller;
 
+import me.wasin.joey.CloudNativeFinal.User.Address;
 import me.wasin.joey.CloudNativeFinal.Authentication.JwtAuthentication;
 import me.wasin.joey.CloudNativeFinal.User.User;
 import me.wasin.joey.CloudNativeFinal.User.UserService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -35,5 +37,11 @@ public class UserController {
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User user_object = userService.addUser(user);
         return new ResponseEntity<User>(user_object, HttpStatus.OK);
+    }
+
+    @PostMapping("/user/{user_id}/address")
+    public ResponseEntity<Address> createAddress(@Valid @RequestBody Address address, @PathVariable(name = "user_id") long userId) {
+        Address address_object = userService.addAddress(address, userId);
+        return new ResponseEntity<Address>(address_object, HttpStatus.CREATED);
     }
 }

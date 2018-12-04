@@ -1,6 +1,5 @@
 package me.wasin.joey.CloudNativeFinal.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import me.wasin.joey.CloudNativeFinal.Ticket.Ticket;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -35,6 +34,11 @@ public class User implements Serializable {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     private Date registerTime;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private List<Address> address;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -87,6 +91,10 @@ public class User implements Serializable {
         this.registerTime = registerTime;
     }
 
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
+
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
@@ -113,6 +121,10 @@ public class User implements Serializable {
 
     public Date getRegisterTime() {
         return registerTime;
+    }
+
+    public List<Address> getAddress() {
+        return address;
     }
 
     public List<Ticket> getTickets() {
